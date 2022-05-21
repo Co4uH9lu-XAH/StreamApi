@@ -43,9 +43,32 @@ public class Main {
         array.add(tank4);
         array.add(tank5);
 
+        ArrayList<Aircraft> airs = new ArrayList<>();
+
+        airs.add(aircraft1);
+        airs.add(aircraft2);
+        airs.add(aircraft3);
+        airs.add(aircraft4);
+        airs.add(aircraft5);
+
         //sort(array, 200);
         Main test = new Main();
         test.chekUnit(array, new ChekCaliber());
+        System.out.println("++++++++++++++++++++++++++++++++++++++++");
+        test.chekUnit2(airs, new CheckRange());
+
+        // Сортировка списка air с помощью анонимного класса. Все тоже самое, но не нужно создавать класс, в
+        // отором будет переопредеоен метод проверки. ПРосто передаем в аргументы метода chekUnit2
+        // public interface CheckAirs и IDEA сгенерирует все сама.
+        
+        test.chekUnit2(airs, new CheckAirs() {
+            @Override
+            public boolean check(Aircraft air) {
+                return air.getRANGE()>400;
+            }
+        });
+
+
 
     }
     //**
@@ -53,6 +76,14 @@ public class Main {
         for (Tank tank: array){
             if(cc.check(tank)){
                 System.out.println(tank);
+            }
+        }
+    }
+
+    void chekUnit2(ArrayList<Aircraft> array, CheckAirs cr) {
+        for (Aircraft air : array) {
+            if (cr.check(air)) {
+                System.out.println(air);
             }
         }
     }

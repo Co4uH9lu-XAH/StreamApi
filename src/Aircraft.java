@@ -35,4 +35,15 @@ public class Aircraft extends BattleUnit{
     public int getRANGE() {
         return RANGE;
     }
+
+    @Override
+    public String toString() {
+        return "Aircraft{" +
+                "BOMBPOWER=" + BOMBPOWER +
+                ", CLIMB=" + CLIMB +
+                ", ROCKETLAUNCHER=" + ROCKETLAUNCHER +
+                ", HOWMANYMASHINGUNS=" + HOWMANYMASHINGUNS +
+                ", RANGE=" + RANGE +
+                '}';
+    }
 }
