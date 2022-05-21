@@ -1,5 +1,13 @@
 import java.util.ArrayList;
 
+/*
+Список с танками отсортирован таким образом:
+* - Создал интерфейс CheckUnit, с boolean методом принимающим в качестве аргумента сортируемый объект.
+** - В классе Main создал foEach, в котором вывожу на экран требуемые обекты, критерии сортировки которых
+определяются в классе, реализовывающем интерфейс. *** В данном случае public class ChekCaliber implements CheckUnit
+**** - критерии сортировки определяются в переопределенном методе check().
+ */
+
 public class Main {
     public static void main(String[] args) {
 
@@ -15,11 +23,11 @@ public class Main {
         Aircraft aircraft4 = new Aircraft(4, "B-24", true, "USA", 1500, 10, 0, 8, 1500);
         Aircraft aircraft5 = new Aircraft(5, "SuperFortes", true, "USA", 100, 5, 0, 10, 2500);
 
-        Warship warship1 = new Warship(100500, "Yamato", true,"JapanEmpire", 9, 6, 0 );
-        Warship warship2 = new Warship(100500, "Bismark", true,"NaziGermany", 12, 9, 3 );
-        Warship warship3 = new Warship(100500, "QueenGeorge", true,"GreatBritain", 10, 3, 8);
-        Warship warship4 = new Warship(100500, "Marat", true,"SovietUnion", 6, 0, 0 );
-        Warship warship5 = new Warship(100500, "Сanoe", true,"Indian", 0, 0, 0 );
+        Warship warship1 = new Warship(100500, "Yamato", true, "JapanEmpire", 9, 6, 0);
+        Warship warship2 = new Warship(100500, "Bismark", true, "NaziGermany", 12, 9, 3);
+        Warship warship3 = new Warship(100500, "QueenGeorge", true, "GreatBritain", 10, 3, 8);
+        Warship warship4 = new Warship(100500, "Marat", true, "SovietUnion", 6, 0, 0);
+        Warship warship5 = new Warship(100500, "Сanoe", true, "Indian", 0, 0, 0);
 
         TrueWeapon trueWeapon1 = new TrueWeapon(500, "Send Worm", false, "ArrakisBeast");
         TrueWeapon trueWeapon2 = new TrueWeapon(30, "Ultralisk", false, "Zerg");
@@ -35,13 +43,15 @@ public class Main {
         array.add(tank4);
         array.add(tank5);
 
-        sort(array, 200);
+        //sort(array, 200);
+        Main test = new Main();
+        test.chekUnit(array, new ChekCaliber());
 
     }
-
-    static void sort (ArrayList<Tank> array, int a ){
+    //**
+    void chekUnit(ArrayList<Tank> array, ChekCaliber cc){
         for (Tank tank: array){
-            if(tank.getENGINEPOWER()>a){
+            if(cc.check(tank)){
                 System.out.println(tank);
             }
         }
