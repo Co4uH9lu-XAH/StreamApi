@@ -51,28 +51,46 @@ public class Main {
         airs.add(aircraft4);
         airs.add(aircraft5);
 
-        //sort(array, 200);
         Main test = new Main();
-        test.chekUnit(array, new ChekCaliber());
+        test.checkUnit(array, new ChekCaliber());
         System.out.println("++++++++++++++++++++++++++++++++++++++++");
-        test.chekUnit2(airs, new CheckRange());
 
         // Сортировка списка air с помощью анонимного класса. Все тоже самое, но не нужно создавать класс, в
-        // отором будет переопредеоен метод проверки. ПРосто передаем в аргументы метода chekUnit2
-        // public interface CheckAirs и IDEA сгенерирует все сама.
+        // котором будет переопредеоен метод проверки. Просто передаем в аргументы метода chekUnit2
+        // список и public interface CheckAirs и IDEA сгенерирует все сама.
         
-        test.chekUnit2(airs, new CheckAirs() {
+        test.checkUnit2(airs, new CheckAirs() {
             @Override
             public boolean check(Aircraft air) {
                 return air.getRANGE()>400;
             }
         });
+        System.out.println("-----------------------------------------");
 
+        // А вот и само лямбда-выражение. По сути, это упрощенная запись сортировки анонимного класса
+        // записи выше. Вместо создания анонимного класса и переопределения метода  chekUnit2 просто пишем
+        // это: (Aircraft air) -> {return air.getCLIMB()<10;});
 
+        test.checkUnit2(airs, (Aircraft air) -> {return air.getCLIMB()<10;});
+
+        System.out.println("///////////////////////////////////////////////////");
+
+        // Еще более короткая запись лямбды (список,объект -> условие возврата true);
+        test.checkUnit(array, tank -> tank.getSPEED()>=30);
+
+        System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        // Если лямбда планируется использоваться много раз, можно присвоить его переменной ca вот так:
+        CheckAirs ca = (Aircraft a) -> a.getBOMBPOWER()>200;
+        // И затем передавать в метод в качестве параметра
+        test.checkUnit2(airs, ca);
+
+        // Итого: лямбда-выражения работают с интерфейсами, в котором имеется только 1 абстрактный метод.
+        // Затем, для написания лямбды нужен метод, принимающий в качестве параметра интерфейс.
+        // И воуля: можно писать лямбду. 
 
     }
     //**
-    void chekUnit(ArrayList<Tank> array, ChekCaliber cc){
+    void checkUnit(ArrayList<Tank> array, ChekCaliber cc){
         for (Tank tank: array){
             if(cc.check(tank)){
                 System.out.println(tank);
@@ -80,7 +98,15 @@ public class Main {
         }
     }
 
-    void chekUnit2(ArrayList<Aircraft> array, CheckAirs cr) {
+    void checkUnit(ArrayList<Tank> array, CheckUnit cw){
+        for (Tank tank: array){
+            if(cw.check(tank)){
+                System.out.println(tank);
+            }
+        }
+    }
+
+    void checkUnit2(ArrayList<Aircraft> array, CheckAirs cr) {
         for (Aircraft air : array) {
             if (cr.check(air)) {
                 System.out.println(air);

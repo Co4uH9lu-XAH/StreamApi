@@ -4,6 +4,6 @@ public class ChekCaliber implements CheckUnit{
     @Override
             // ****
     public boolean check(Tank tank) {
-        return tank.getCALIBER()<300;
+        return tank.getCALIBER()<200;
     }
 }
